@@ -253,9 +253,9 @@ async function comprarPizzas(){
         alert("voce precisa se cadastrar para poder comprar pizzas ;((");
 
     }else{
-        let user;
-        await fetch(`/user/${localStorage.getItem("UserId")}`)
-        .then(async (res) =>  user = await res.json())
+        let user = JSON.parse(localStorage.getItem("cliente8//7"));
+        //await fetch(`/user/${localStorage.getItem("UserId")}`)
+        //.then(async (res) =>  user = await res.json())
 
         console.log(user);
 

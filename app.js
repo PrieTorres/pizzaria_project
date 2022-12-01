@@ -72,24 +72,23 @@ app.post("/cadastrar-user", async (req, res) => {
                 if(err){
                     console.log("erro ao cadastrar user --> ", err);
                 }else{
-                    console.log("cadastrado!");
+                    console.log("cadastrado!", savedUser);
                     req.body = '';
-                    res.cookie('access_token', 'User_id: ' + savedUser.id, {
-                        expires: new Date(Date.now() + 24 * 3600000) // cookie expira em 24 horas
-                      })
-                      
+                    //res.sendStatus(400)
+                    //res.setHeader('UserInformation', {loged:true, id:savedUser.id});
+                    res.cookie("UserId", `${savedUser.insertId}`, {valor: savedUser.insertId})
                     res.sendFile(__dirname+"/cardapio.html");
                 }
             })
         }
     })
-    
-    
+
+
 });
 
 app.post("/fazer-pedido", (req, res) => {
     const body = req.body;
-     
+
 });
 
 
