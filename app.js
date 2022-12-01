@@ -76,7 +76,7 @@ app.post("/cadastrar-user", async (req, res) => {
                     req.body = '';
                     //res.sendStatus(400)
                     //res.setHeader('UserInformation', {loged:true, id:savedUser.id});
-                    res.cookie("UserId", `${savedUser.insertId}`, {valor: savedUser.insertId})
+                    res.cookie("UserId", `${user.cpf}`, {valor: user.cpf})
                     res.sendFile(__dirname+"/cardapio.html");
                 }
             })
