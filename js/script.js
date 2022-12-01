@@ -254,7 +254,7 @@ async function comprarPizzas(){
 
     }else{
         let user;
-        await fetch(`/user/${window.Headers.UserInformation.id}`)
+        await fetch(`/user/${localStorage.getItem("UserId")}`)
         .then(async (res) =>  user = await res.json())
 
         console.log(user);

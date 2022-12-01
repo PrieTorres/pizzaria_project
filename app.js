@@ -74,8 +74,10 @@ app.post("/cadastrar-user", async (req, res) => {
                 }else{
                     console.log("cadastrado!");
                     req.body = '';
-                    //res.sendStatus(400)
-                    res.setHeader('UserInformation', {loged:true, id:savedUser.id});
+                    res.cookie('access_token', 'User_id: ' + savedUser.id, {
+                        expires: new Date(Date.now() + 24 * 3600000) // cookie expira em 24 horas
+                      })
+                      
                     res.sendFile(__dirname+"/cardapio.html");
                 }
             })
