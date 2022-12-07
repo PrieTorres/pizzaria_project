@@ -22,7 +22,7 @@ app.get("/user/:id", (req, res) => {
     connection.query(`select user.nome as nome, endereco.rua, endereco.bairro from user
     inner join endereco
     on user.FK_endereco = endereco.id
-    where user.id = ${userId};`, (err, rows) => {
+    where user.cpf = "${userId}";`, (err, rows) => {
         if (err) console.log("erro ao pegar usuário --> ", err);
 
         res.send(rows);

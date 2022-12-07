@@ -249,18 +249,14 @@ function updateCart(){
 }
 
 async function comprarPizzas(){
-    if(localStorage.getItem("cliente")==undefined && !window.Headers.UserInformation){
+    if(localStorage.getItem("user")==undefined){
         alert("voce precisa se cadastrar para poder comprar pizzas ;((");
-
     }else{
-        let user = JSON.parse(localStorage.getItem("cliente8//7"));
-        //await fetch(`/user/${localStorage.getItem("UserId")}`)
-        //.then(async (res) =>  user = await res.json())
-
-        console.log(user);
-
+        let user = JSON.parse(localStorage.getItem("user"));
+        
         let pedido = {
-            cliente: JSON.parse(localStorage.getItem("cliente")).nome,
+            cliente: user.nome,
+            endereco: `Rua: ${user.rua} Bairro:${user.bairro}`,
             itens: [],
             preco: 0
         };
