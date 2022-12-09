@@ -252,7 +252,7 @@ async function comprarPizzas(){
     if(localStorage.getItem("user")==undefined){
         alert("voce precisa se cadastrar para poder comprar pizzas ;((");
     }else{
-        let user = JSON.parse(localStorage.getItem("user"));
+        let user = JSON.parse(localStorage.getItem("user"))[0];
         
         let pedido = {
             cliente: user.nome,
@@ -273,21 +273,23 @@ async function comprarPizzas(){
 
         localStorage.setItem("carrinho", JSON.stringify(cart));
         localStorage.setItem("pedido", JSON.stringify(pedido));
+
+        openModalPedido();
     }
 }
 
 function openModalPedido(){
     const pedido = JSON.parse(localStorage.getItem("pedido"));
-    const cliente = JSON.parse(localStorage.getItem("cliente"));
+    const cliente = JSON.parse(localStorage.getItem("user"))[0];
 
     let html = `
     <div class="modal_pedido">
-        <p>Nome: ${pedido.cliente}</p>
-        <p>Endereço: ${cliente.endereco}</p>
-        <p>E-mail: ${cliente.email}</p>
-        <p>Telefone: ${cliente.telefone}</p>
+        <p>Nome: ${cliente.nome}</p>
+        <p>Endereço: ${cliente.rua} - ${cliente.bairro}</p>
         <p>Itens: ${JSON.stringify(pedido.itens)}</p>
         <p>Total: R$ ${pedido.preco}</p>
+
+        <button onclick="fazerPedido()">Pedir!</button>
     </div>
     `
 

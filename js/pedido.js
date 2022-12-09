@@ -14,7 +14,7 @@ function addEventOnForm(){
             //telefone: telInput.value,
         }
     
-        localStorage.setItem("cliente", JSON.stringify(cliente));
+        localStorage.setItem("user", JSON.stringify(cliente));
 
         document.body.querySelector("#form-cadastrar-user").removeEventListener("submit");
         document.body.querySelector("#form-cadastrar-user").submit();
@@ -23,7 +23,6 @@ function addEventOnForm(){
 
 async function cadastrarCliente(e){
     //if(e) e.target.preventDefault();
-
     
     const nomeInput = document.querySelector("#input-nome")
     const emailInput = document.querySelector("#input-sobrenome")
@@ -37,6 +36,5 @@ async function cadastrarCliente(e){
         //telefone: telInput.value,
     }
 
-    localStorage.setItem("cliente", JSON.stringify(cliente));
-    
+    localStorage.setItem("user", JSON.stringify(cliente));
 }

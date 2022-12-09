@@ -63,14 +63,16 @@ app.post("/cadastrar-user", async (req, res) => {
 
     connection.query("insert into endereco set ?", endereco, (err, savedEndereco)=>{
         if(err){
-            console.log("erro ao cadastrar endereco --> ", err);
+            res.send(err);
+            return console.log("erro ao cadastrar endereco --> ", err);
         }else{
             console.log("cadastrado!", savedEndereco);
             user.FK_endereco = savedEndereco.insertId;
 
             connection.query("insert into user set ?", user, (err, savedUser)=>{
                 if(err){
-                    console.log("erro ao cadastrar user --> ", err);
+                    res.send(err);
+                    return console.log("erro ao cadastrar user --> ", err);
                 }else{
                     console.log("cadastrado!", savedUser);
                     req.body = '';
@@ -78,6 +80,8 @@ app.post("/cadastrar-user", async (req, res) => {
                     //res.setHeader('UserInformation', {loged:true, id:savedUser.id});
                     res.cookie("UserId", `${user.cpf}`, {valor: user.cpf})
                     res.sendFile(__dirname+"/cardapio.html");
+                    res.status(200);
+                    return;
                 }
             })
         }
@@ -86,10 +90,39 @@ app.post("/cadastrar-user", async (req, res) => {
 
 });
 
-app.post("/fazer-pedido", (req, res) => {
-    const body = req.body;
+app.get("/fazer-pedido", (req, res) => {
+    const body = req.query;
+    testConnect();
 
+    console.log("body ---> ", body);
+
+    let pedido = {
+        itens: body.itens,
+        data: new Date(),
+        endereco: body.endereco
+    };
+
+    connection.query("insert into pedido set ?", pedido, (err, saved)=>{
+        if(err){
+            console.log("erro ao cadastrar pedido --> ", err);
+            res.send(err);
+            return;
+        }else{
+            console.log("cadastrado!", saved);
+            res.sendFile(__dirname+"/meus-pedidos.html");
+        }
+    })
 });
+
+app.get("/pedidos", (req,res) => {
+    testConnect();
+
+    connection.query(`select * from pedido;`, (err, rows) => {
+        if (err) return console.log("erro ao listar pedidos --> ", err);
+
+        res.send(rows);
+    });
+})
 
 
 
